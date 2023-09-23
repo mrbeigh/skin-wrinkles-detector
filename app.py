@@ -7,7 +7,7 @@ import tensorflow as tf
 app = Flask(__name__)
 
 # Load your trained model
-model = tf.keras.models.load_model('saved_models/model.h5')
+model = tf.keras.models.load_model('https://drive.google.com/file/d/1HGA63hJ91KFMh3LtKp8Rq2lZnCnLEBzC/uc?export=download')
 
 @app.route('/')
 def index():
