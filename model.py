@@ -1,39 +1,39 @@
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.optimizers import Adam
 
 # Data Preparation
-train_datagen = ImageDataGenerator(rescale=1./255)
-test_datagen = ImageDataGenerator(rescale=1./255)
+datagen = ImageDataGenerator(rescale=1./255)
 
-train_generator = train_datagen.flow_from_directory(
+train_generator = datagen.flow_from_directory(
     'datasets/train',
-    target_size=(150, 150),
+    target_size=(64, 64),  # Reduced image size
     batch_size=32,
-    class_mode='binary')  # Change class_mode to 'categorical' for multi-class classification
+    class_mode='binary')
 
-test_generator = test_datagen.flow_from_directory(
+test_generator = datagen.flow_from_directory(
     'datasets/test',
-    target_size=(150, 150),
+    target_size=(64, 64),  # Reduced image size
     batch_size=32,
-    class_mode='binary')  # Change class_mode to 'categorical' for multi-class classification
+    class_mode='binary')
 
 # Model Architecture
-model = tf.keras.models.Sequential([
-    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),
-    tf.keras.layers.MaxPooling2D(2, 2),
-    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    tf.keras.layers.MaxPooling2D(2, 2),
-    tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
-    tf.keras.layers.MaxPooling2D(2, 2),
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dropout(0.5),
-    tf.keras.layers.Dense(1, activation='sigmoid')  # Binary classification
+model = Sequential([
+    Conv2D(32, (3, 3), activation='relu', input_shape=(64, 64, 3)),
+    MaxPooling2D(2, 2),
+    Conv2D(64, (3, 3), activation='relu'),
+    MaxPooling2D(2, 2),
+    Flatten(),
+    Dense(64, activation='relu'),
+    Dropout(0.5),
+    Dense(1, activation='sigmoid')
 ])
 
 # Compile the model
-model.compile(optimizer='adam',
-              loss='binary_crossentropy',  # Use binary_crossentropy for binary classification
+model.compile(optimizer=Adam(learning_rate=0.001),
+              loss='binary_crossentropy',
               metrics=['accuracy'])
 
 # Training

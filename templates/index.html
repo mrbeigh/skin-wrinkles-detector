@@ -4,20 +4,76 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wrinkle Detection App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+
+        .upload-form {
+            margin-top: 20px;
+        }
+
+        .upload-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-button:hover {
+            background-color: #0056b3;
+        }
+
+        #prediction {
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload an Image for Wrinkle Detection</h1>
-    <form method="POST" action="/predict" enctype="multipart/form-data">
-        <input type="file" name="file" accept=".jpg, .jpeg, .png">
-        <input type="submit" value="Predict">
-    </form>
+    <h1>Wrinkle Detection App</h1>
+    <div class="container">
+        <h2>Upload an Image</h2>
+        <form method="POST" action="/predict" enctype="multipart/form-data" class="upload-form">
+            <input type="file" name="file" accept=".jpg, .jpeg, .png">
+            <br>
+            <br>
+            <input type="submit" value="Predict" class="upload-button">
+        </form>
 
-    <!-- Display the prediction result here -->
-    <div id="prediction">
-        {% if result %}
-            <h2>Result:</h2>
-            <p>{{ result }}</p>
-        {% endif %}
+        <!-- Display the prediction result here -->
+        <div id="prediction">
+            {% if result %}
+                <h2>Result:</h2>
+                <p>{{ result }}</p>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>
