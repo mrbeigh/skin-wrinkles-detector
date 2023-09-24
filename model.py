@@ -40,4 +40,4 @@ model.compile(optimizer=Adam(learning_rate=0.001),
 model.fit(train_generator, epochs=10, validation_data=test_generator)
 
 # Save the trained model
-model.save('saved_models/model.h5')
+#model.save('/model.h5')

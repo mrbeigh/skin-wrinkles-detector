@@ -3,10 +3,10 @@ from PIL import Image
 import numpy as np
 import tensorflow as tf
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='')
 
 # Load your trained model
-model = tf.keras.models.load_model('saved_models/model.h5')
+model = tf.keras.models.load_model('model.h5')
 
 @app.route('/')
 def index():
